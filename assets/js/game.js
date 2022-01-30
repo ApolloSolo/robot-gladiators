@@ -4,11 +4,11 @@ let playerHealth = 100;
 let playerAttack = 10;
 let playerMoney = 10;
 
-const enemyName = "Roborto";
+const enemyNames = ["Roborto", "Magic Magna", "Titanium Tina"];
 let enemyHealth = 50;
 let enemyAttack = 12;
 
-const fight = () => {
+const fight = (enemyName) => {
   // if player choses to fight, then fight
   if (promptFight === "fight" || promptFight === "FIGHT") {
     // remove enemy's health by subtracting the amount set in the playerAttack variable
@@ -52,18 +52,22 @@ const fight = () => {
     }
     // if player choses to skip
   } else if (promptFight === "skip" || promptFight === "SKIP") {
-        let confrimSkip = window.confirm("Are you sure you want to skip this fight?")
+    let confrimSkip = window.confirm(
+      "Are you sure you want to skip this fight?"
+    );
 
-        if(confrimSkip === "Yes" || "YES"){
-            window.alert(playerName + " has chosen to skip the fight!");
-            playerMoney -= 2;
-            console.log(playerMoney);
-        }
-
-        
+    // confirm player wants to skip
+    if (confrimSkip) {
+      window.alert(playerName + " has chosen to skip the fight!");
+      playerMoney -= 2;
+    } else {
+      fight();
+    }
   } else {
     window.alert("You need to choose a valid option. Try again!");
   }
 };
 
-fight();
+for(let i = 0; i < enemyNames.length; i++){
+    fight(enemyNames[i]);
+}
