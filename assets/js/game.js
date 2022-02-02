@@ -1,13 +1,20 @@
 const playerName = prompt("Enter your robot's name.");
 // ask player if they'd like to fight or run
 const promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
-let playerHealth = 100;
+const randomNumber = function(min, max) {
+  var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+  return value;
+};
+let playerHealth = randomNumber(75, 110);
 let playerAttack = 10;
-let playerMoney = 10;
+let playerMoney = randomNumber(40, 60);
 
 const enemyNames = ["Roborto", "Magic Magna", "Titanium Tina"];
-let enemyHealth = 50;
+let enemyHealth = randomNumber(40, 60);
 let enemyAttack = 12;
+
+const damage = randomNumber(playerAttack - 3, playerAttack)
 
 const fight = function(enemyName) {
     while (playerHealth > 0 && enemyHealth > 0) {
@@ -30,7 +37,7 @@ const fight = function(enemyName) {
       }
   
       // remove enemy's health by subtracting the amount set in the playerAttack variable
-      enemyHealth = enemyHealth - playerAttack;
+      enemyHealth = Math.max(0, enemyHealth - damage);
       console.log(
         playerName + ' attacked ' + enemyName + '. ' + enemyName + ' now has ' + enemyHealth + ' health remaining.'
       );
@@ -49,7 +56,7 @@ const fight = function(enemyName) {
       }
   
       // remove players's health by subtracting the amount set in the enemyAttack variable
-      playerHealth = playerHealth - enemyAttack;
+      playerHealth = Math.max(0, playerHealth - damage);;
       console.log(
         enemyName + ' attacked ' + playerName + '. ' + playerName + ' now has ' + playerHealth + ' health remaining.'
       );
